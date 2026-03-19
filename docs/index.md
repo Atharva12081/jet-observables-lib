@@ -13,7 +13,7 @@ title: Monte Carlo Validation Project Page
       </p>
       <div class="d-flex flex-wrap gap-2">
         <a class="btn btn-primary" href="https://github.com/Atharva12081/JetObsMC">Repository</a>
-        <a class="btn btn-outline-primary" href="https://ml4sci.org/gsoc/2026/proposal_HEP.html">ML4SCI Project Catalog</a>
+        <a class="btn btn-outline-primary" href="https://ml4sci.org/">ML4SCI Home</a>
         <a class="btn btn-outline-secondary" href="{{ '/observables/' | relative_url }}">Observable Catalog</a>
       </div>
     </div>
@@ -168,16 +168,14 @@ title: Monte Carlo Validation Project Page
 <section class="mb-5">
   <h2 class="section-title h3 mb-3">Minimal Usage Contract</h2>
 
-```python
-from jetobsmc.jet import Jet
+  <pre><code>from jetobsmc.jet import Jet
 from jetobsmc.observables.shapes import jet_width, energy_correlation_e2
 
 jet = Jet(particles_e_px_py_pz)
 pt = jet.pt()
 mass = jet.mass()
 width = jet_width(jet)
-e2 = energy_correlation_e2(jet)
-```
+e2 = energy_correlation_e2(jet)</code></pre>
 
   <p class="mb-0 muted">
     The same object/API contract is reused across notebooks, tests, and CI to minimize analysis drift.
@@ -189,8 +187,8 @@ e2 = energy_correlation_e2(jet)
   <div class="row g-3">
     <div class="col-md-6 col-lg-4">
       <div class="card h-100"><div class="card-body">
-        <h3 class="h6">ML4SCI Project Listing</h3>
-        <a href="https://ml4sci.org/gsoc/2026/proposal_HEP.html">Proposal Catalog</a>
+        <h3 class="h6">ML4SCI Website</h3>
+        <a href="https://ml4sci.org/">Main Site</a>
       </div></div>
     </div>
     <div class="col-md-6 col-lg-4">
