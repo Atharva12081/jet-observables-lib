@@ -1,4 +1,41 @@
-from setuptools import find_packages, setup
+import os
+import sysconfig
+
+from setuptools import Extension, find_packages, setup
+from setuptools.command.build_ext import build_ext
+
+
+class OptionalBuildExt(build_ext):
+    """Allow pure-Python installation to continue if the C++ module fails."""
+
+    def run(self):
+        try:
+            super().run()
+        except Exception as exc:  # pragma: no cover - install-time path
+            print(f"[jetobsmc] optional C++ extension build skipped: {exc}")
+
+    def build_extension(self, ext):
+        try:
+            super().build_extension(ext)
+        except Exception as exc:  # pragma: no cover - install-time path
+            print(f"[jetobsmc] optional extension {ext.name} skipped: {exc}")
+
+    def get_ext_filename(self, ext_name):
+        filename = super().get_ext_filename(ext_name)
+        ext_suffix = sysconfig.get_config_var("EXT_SUFFIX")
+        if not ext_suffix:
+            return filename
+        base, _ = os.path.splitext(filename)
+        return base + ext_suffix
+
+
+fastobs_extension = Extension(
+    "jetobsmc._fastobs",
+    sources=["src/jetobsmc/_fastobs.cpp"],
+    language="c++",
+    include_dirs=[sysconfig.get_paths()["include"]],
+    extra_compile_args=["-std=c++17"],
+)
 
 setup(
     name="jetobsmc",
@@ -27,4 +64,6 @@ setup(
             "black>=24.0",
         ]
     },
+    ext_modules=[fastobs_extension],
+    cmdclass={"build_ext": OptionalBuildExt},
 )

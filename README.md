@@ -9,12 +9,13 @@ The project is built for reproducible Monte Carlo validation workflows with one 
 
 - Main page: `docs/index.md`
 - Observable catalog: `docs/observables.md`
-- Expected URL (Pages source = `docs/`): `https://atharva12081.github.io/JetObsMC/`
+- Pages URL pattern (after enabling GitHub Pages for this repo): `atharva12081.github.io/JetObsMC`
 
 ## Current Delivery Status
 
 - Pip-installable package via `setup.py`
 - **30 observables** implemented across kinematic, shape, substructure, and groomed-proxy categories
+- Optional C++ prototype module for `jet_width` and proxy `tau` observables under `src/jetobsmc/_fastobs.cpp`
 - Metadata registry with IRC safety, category, dependencies, and complexity
 - CI + pytest validation, including loop-based reference implementation checks
 - Multiple notebooks for Monte Carlo validation workflows
@@ -52,11 +53,19 @@ Run tests locally:
 pytest -q
 ```
 
+Build the optional C++ prototype in place:
+
+```bash
+python3 setup.py build_ext --inplace
+```
+
 Run the HEPSIM evaluation notebook end-to-end:
 
 ```bash
 jupyter nbconvert --to notebook --execute --inplace examples/hepsim_evaluation_submission.ipynb
 ```
+
+Prerequisite: place one or more `QG_jets_*.npz` files in `data/` (repo root), for example `data/QG_jets_1.npz`.
 
 Smoke-test the installed package:
 
@@ -136,6 +145,21 @@ What is validated:
 - `examples/mc_validation_workflow.ipynb`
 - `examples/evaluation_template.ipynb`
 - `examples/benchmark_e2_scaling.ipynb`
+- `examples/benchmark_cpp_acceleration.py`
+
+## Optional C++ Prototype
+
+JetObsMC remains fully usable as a pure-Python package, but the repository now
+also includes a small C++ acceleration prototype for a narrow set of observables:
+
+- `jet_width`
+- `tau1` proxy
+- `tau2` proxy
+- `tau21` proxy
+
+The prototype lives in `src/jetobsmc/_fastobs.cpp` and is exposed through
+`jetobsmc.accelerated`. The benchmark script `examples/benchmark_cpp_acceleration.py`
+can be used to compare the Python and C++ paths locally.
 
 ## Open Source and Contributions
 

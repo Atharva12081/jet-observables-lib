@@ -1,5 +1,6 @@
 """JetObsMC core package."""
 
+from .accelerated import HAS_CPP_ACCELERATION, cpp_status
 from .evaluation import canonical_constituent_mask, ptyphipdg_to_p4
 from .fourvector import FourVector
 from .jet import Jet
@@ -12,6 +13,8 @@ __all__ = [
     "FourVector",
     "Jet",
     "OBSERVABLES",
+    "HAS_CPP_ACCELERATION",
+    "cpp_status",
     "canonical_constituent_mask",
     "ptyphipdg_to_p4",
 ]
